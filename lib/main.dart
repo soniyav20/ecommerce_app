@@ -30,22 +30,23 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(
         title: Text('E-Commerce'),
         centerTitle: true,
         backgroundColor: Colors.black54,
       ),
       drawer: DrawerMenu(),
-      body: Stack(children: [
-        Container(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          FirstRow(),
+          SizedBox(
+            height: 20.0,
+          ),
+          Expanded(
+            child: ListView(
               children: [
-                FirstRow(),
-                SizedBox(
-                  height: 20.0,
-                ),
                 Categories(),
                 SizedBox(
                   height: 20.0,
@@ -180,81 +181,75 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          child: Container(
-              width: size.width,
-              height: 72,
-              child: Stack(
-                //overflow: Overflow.visible,
-                children: [
-                  CustomPaint(
-                    size: Size(size.width, 72),
-                    painter: BNBCustomPainter(),
-                  ),
-                  Center(
-                    heightFactor: 0.4,
-                    child: FloatingActionButton(
-                        backgroundColor: Colors.red,
-                        child: Icon(Icons.crop),
-                        elevation: 0.2,
-                        onPressed: () {}),
-                  ),
-                  Container(
-                    width: size.width,
-                    height: 72,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            Icons.home,
-                            color: currentIndex == 0 ? Colors.red : Colors.grey,
-                          ),
-                          onPressed: () {
-                            setBottomBarIndex(0);
-                          },
-                          splashColor: Colors.white,
-                        ),
-                        IconButton(
-                            icon: Icon(
-                              Icons.favorite,
-                              color:
-                                  currentIndex == 1 ? Colors.red : Colors.grey,
-                            ),
-                            onPressed: () {
-                              setBottomBarIndex(1);
-                            }),
-                        Container(
-                          width: 20,
-                        ),
-                        IconButton(
-                            icon: Icon(
-                              Icons.apps,
-                              color:
-                                  currentIndex == 2 ? Colors.red : Colors.grey,
-                            ),
-                            onPressed: () {
-                              setBottomBarIndex(2);
-                            }),
-                        IconButton(
-                            icon: Icon(
-                              Icons.person,
-                              color:
-                                  currentIndex == 3 ? Colors.red : Colors.grey,
-                            ),
-                            onPressed: () {
-                              setBottomBarIndex(3);
-                            }),
-                      ],
+        ],
+      ),
+      bottomNavigationBar: Container(
+          color: Colors.transparent,
+          width: size.width,
+          height: 72,
+          child: Stack(
+            overflow: Overflow.visible,
+            children: [
+              CustomPaint(
+                size: Size(size.width, 72),
+                painter: BNBCustomPainter(),
+              ),
+              Center(
+                heightFactor: 0.4,
+                child: FloatingActionButton(
+                    backgroundColor: Colors.red,
+                    child: Icon(Icons.crop),
+                    elevation: 0.2,
+                    onPressed: () {}),
+              ),
+              Container(
+                width: size.width,
+                height: 72,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.home,
+                        color: currentIndex == 0 ? Colors.red : Colors.grey,
+                      ),
+                      onPressed: () {
+                        setBottomBarIndex(0);
+                      },
+                      splashColor: Colors.white,
                     ),
-                  )
-                ],
-              )),
-        ),
-      ]),
+                    IconButton(
+                        icon: Icon(
+                          Icons.favorite,
+                          color: currentIndex == 1 ? Colors.red : Colors.grey,
+                        ),
+                        onPressed: () {
+                          setBottomBarIndex(1);
+                        }),
+                    Container(
+                      width: 20,
+                    ),
+                    IconButton(
+                        icon: Icon(
+                          Icons.apps,
+                          color: currentIndex == 2 ? Colors.red : Colors.grey,
+                        ),
+                        onPressed: () {
+                          setBottomBarIndex(2);
+                        }),
+                    IconButton(
+                        icon: Icon(
+                          Icons.person,
+                          color: currentIndex == 3 ? Colors.red : Colors.grey,
+                        ),
+                        onPressed: () {
+                          setBottomBarIndex(3);
+                        }),
+                  ],
+                ),
+              )
+            ],
+          )),
     );
   }
 }
